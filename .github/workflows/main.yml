@@ -12,20 +12,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    container:
+      image: mcr.microsoft.com/playwright:v1.49.1
+
     steps:
-      - name: Repository letöltése
-        uses: actions/checkout@v4
-
-      - name: Node.js telepítése
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Függőségek telepítése
+      - name: Install Dependencies
         run: npm install
 
-      - name: Playwright böngészők telepítése
-        run: npx playwright install --with-deps
+      - name: Give Permission
+        run: chmod +x node_modules/.bin/playwright
 
-      - name: Tesztek futtatása
+      - name: Run Test
         run: npx playwright test
